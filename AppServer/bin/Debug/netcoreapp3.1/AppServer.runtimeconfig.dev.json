@@ -1,9 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\rPypty\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\rPypty\\.nuget\\packages",
-      "C:\\Microsoft\\Xamarin\\NuGet"
+      "C:\\Users\\Андрей\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Андрей\\.nuget\\packages"
     ]
   }
 }
