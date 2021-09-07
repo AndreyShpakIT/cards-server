@@ -10,10 +10,36 @@ using AppServer.Models;
 
 namespace AppServer.Controllers
 {
+    public static class Data
+    {
+        public static List<Card> items = new List<Card>
+        {
+            new Card
+            {
+                Id = 1,
+                Title = "Source",
+                ImageUri = "kjfkjhgksdfjhglkasjhldshf",
+            },
+            new Card
+            {
+                Id = 2,
+                Title = "House",
+                ImageUri = "iuoaghsd7f67684ASF56",
+            },
+              new Card
+            {
+                Id = 3,
+                Title = "Masterpiece",
+                ImageUri = "127TFGYUGAFJKSHG8fslaf",
+            },
+        };
+    }
+
     [Route("api/[controller]")]
     [ApiController]
     public class CardsController : ControllerBase
     {
+        
         private readonly ServerDbContext _context;
 
         public CardsController(ServerDbContext context)
@@ -23,9 +49,10 @@ namespace AppServer.Controllers
 
         // GET: api/Cards
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Card>>> GetCards()
+        public IEnumerable<Card> GetCards()
         {
-            return await _context.Cards.ToListAsync();
+            //return await _context.Cards.ToListAsync();
+            return Data.items;
         }
 
         // GET: api/Cards/5
@@ -78,12 +105,13 @@ namespace AppServer.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Card>> PostCard(Card card)
+        public ActionResult<Card> PostCard(Card card)
         {
-            _context.Cards.Add(card);
+            //_context.Cards.Add(card);
             try
             {
-                await _context.SaveChangesAsync();
+                Data.items.Add(card);
+                //await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
