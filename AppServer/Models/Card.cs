@@ -4,6 +4,6 @@
     {
         public long Id { get; set; }
         public string Title { get; set; }
-        public string ImageUri { get; set; }
+        public byte[] ImageBytes { get; set; }
     }
 }

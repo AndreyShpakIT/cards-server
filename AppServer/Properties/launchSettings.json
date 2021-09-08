@@ -16,7 +16,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "api/cards",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -24,7 +24,7 @@
     "AppServer": {
       "commandName": "IIS",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "api/cards",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

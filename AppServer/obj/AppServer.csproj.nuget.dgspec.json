@@ -1,21 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "F:\\User\\web\\RestApp\\Server\\app_server_rest\\AppServer\\AppServer.csproj": {}
+    "D:\\app_rest\\app_server_rest\\AppServer\\AppServer.csproj": {}
   },
   "projects": {
-    "F:\\User\\web\\RestApp\\Server\\app_server_rest\\AppServer\\AppServer.csproj": {
+    "D:\\app_rest\\app_server_rest\\AppServer\\AppServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\User\\web\\RestApp\\Server\\app_server_rest\\AppServer\\AppServer.csproj",
+        "projectUniqueName": "D:\\app_rest\\app_server_rest\\AppServer\\AppServer.csproj",
         "projectName": "AppServer",
-        "projectPath": "F:\\User\\web\\RestApp\\Server\\app_server_rest\\AppServer\\AppServer.csproj",
-        "packagesPath": "C:\\Users\\Андрей\\.nuget\\packages\\",
-        "outputPath": "F:\\User\\web\\RestApp\\Server\\app_server_rest\\AppServer\\obj\\",
+        "projectPath": "D:\\app_rest\\app_server_rest\\AppServer\\AppServer.csproj",
+        "packagesPath": "C:\\Users\\rPypty\\.nuget\\packages\\",
+        "outputPath": "D:\\app_rest\\app_server_rest\\AppServer\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Андрей\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\rPypty\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -40,28 +44,6 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[3.1.18, )"
-            },
-            "Microsoft.EntityFrameworkCore.InMemory": {
-              "target": "Package",
-              "version": "[3.1.18, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[3.1.15, )"
-            },
-            "Microsoft.EntityFrameworkCore.Sqlite": {
-              "target": "Package",
-              "version": "[3.1.15, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[3.1.15, )"
-            },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.1.5, )"
@@ -77,12 +59,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[3.1.13, 3.1.13]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -91,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
