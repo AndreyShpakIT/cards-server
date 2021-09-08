@@ -10,18 +10,19 @@ namespace AppServer.Controllers
     [ApiController]
     public class CardsController : ControllerBase
     {
-        // GET: api/Cards
+        // GET: api/cards
         [HttpGet]
-        public IEnumerable<Card> GetCards()
+        public IEnumerable<SCard> GetCards()
         {
             return CardsStorage.Cards;
         }
 
-        // GET: api/Cards/5
+        // GET: api/cards/5
         [HttpGet("{id}")]
-        public ActionResult<Card> GetCard(long id)
+        public ActionResult<SCard> GetCard(long id)
         {
-            Card card = FindCard(id);
+            CardsStorage.Load();
+            SCard card = FindCard(id);
             if (card == null)
             {
                 return NotFound();
@@ -30,24 +31,71 @@ namespace AppServer.Controllers
             return card;
         }
 
-        // POST: api/Cards
+        // POST: api/cards
         [HttpPost]
-        public ActionResult<Card> PostCard(Card card)
+        public ActionResult<SCard> PostCard(SCard card)
         {
-            if (CardExists(card.Id))
+            if (card.Id == -1)
             {
-                return Conflict();
+                card.Id = CardsStorage.Cards.Count > 0 ? CardsStorage.Cards.OrderBy(c => c.Id).Last().Id + 1 : 0;
             }
+            //if (CardExists(card.Id))
+            //{
+            //    return Conflict();
+            //}
+
             CardsStorage.Cards.Add(card);
-            CardsStorage.AddCardAsync(card);
+            CardsStorage.Save();
+
             return CreatedAtAction(nameof(GetCard), new { id = card.Id }, card);
         }
 
-        // DELETE: api/Cards/5
-        [HttpDelete("{id}")]
-        public ActionResult<Card> DeleteCard(long id)
+        // DELETE: api/cards/delete
+        [HttpPost("delete")]
+        public ActionResult<List<SCard>> DeleteCards(long[] delete)
         {
-            Card card = FindCard(id);
+            List<SCard> deleted = new List<SCard>();
+            foreach (int id in delete)
+            {
+                SCard card = FindCard(id);
+                if (card == null)
+                {
+                    return NotFound();
+                }
+
+                CardsStorage.Cards.Remove(card);
+                deleted.Add(card);
+            }
+            CardsStorage.Save();
+            return CreatedAtAction(nameof(DeleteCards), deleted);
+        }
+
+        // Put: api/cards
+        [HttpPut]
+        public ActionResult<SCard> PutCard(SCard card)
+        {
+            if (!CardExists(card.Id))
+            {
+                return Conflict();
+            }
+
+            int i = CardsStorage.Cards.FindIndex(c => c.Id == card.Id);
+            SCard oldCard = CardsStorage.Cards.ElementAt(i);
+
+            oldCard.ImageBytes = card.ImageBytes;
+            oldCard.Title = card.Title;
+            
+            //CardsStorage.Cards.Add(card);
+            CardsStorage.Save();
+
+            return CreatedAtAction(nameof(GetCard), new { id = card.Id }, card);
+        }
+
+        // DELETE: api/cards/5
+        [HttpDelete("{id}")]
+        public ActionResult<SCard> DeleteCard(long id)  
+        {
+            SCard card = FindCard(id);
             if (card == null)
             {
                 return NotFound();
@@ -63,7 +111,7 @@ namespace AppServer.Controllers
         {
             return CardsStorage.Cards.Any(e => e.Id == id);
         }
-        private Card FindCard(long id)
+        private SCard FindCard(long id)
         {
             return CardsStorage.Cards.Find(card => card.Id == id);
         }

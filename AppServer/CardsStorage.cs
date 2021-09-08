@@ -1,9 +1,10 @@
 ﻿using AppServer.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text.Json;
 
 namespace AppServer
 {
@@ -22,43 +23,79 @@ namespace AppServer
         }
 
         private static readonly string path = "cards.json";
-        public static List<Card> Cards = new List<Card>();
+        public static List<SCard> Cards = new List<SCard>();
 
         public static void Save()
         {
-            string jsonCard = "";
-            string jsonCards = "";
-            foreach(Card item in Cards)
-            {
-                jsonCard = JsonSerializer.Serialize(item);
-                jsonCards += jsonCard;
-            }
-            using (StreamWriter writer = new StreamWriter(path))
-            {
-                writer.WriteLine(jsonCards);
-            }
+            string json = JsonConvert.SerializeObject(Cards);
+            File.WriteAllText(path, json);
         }
         public static void Load()
         {
-            string jsonCard = "";
-            Card card;
-            List<Card> items = new List<Card>();
-            using (StreamReader reader = new StreamReader(path))
+            Cards = JsonConvert.DeserializeObject<List<SCard>>(File.ReadAllText(path));
+            if (Cards == null)
             {
-                jsonCard = reader.ReadLine();
-                card = JsonSerializer.Deserialize<Card>(jsonCard);
-                items.Add(card);
-            }
-            Cards = items;
-        }
-        public static async void AddCardAsync(Card card)
-        {
-            string jsonCard = JsonSerializer.Serialize(card);
-
-            using (StreamWriter writer = new StreamWriter(path, true))
-            {
-                await writer.WriteLineAsync(jsonCard);
+                Cards = new List<SCard>();
             }
         }
     }
+
+
+    //public static class CardsStorage
+    //{
+    //    static CardsStorage()
+    //    {
+    //        try
+    //        {
+    //            Load();
+    //        }
+    //        catch (Exception e)
+    //        {
+    //            Debug.WriteLine(e.Message);
+    //        }
+    //    }
+
+    //    private static readonly string path = "cards.json";
+    //    public static List<SCard> Cards = new List<SCard>();
+
+    //    public static void Save()
+    //    {
+    //        string jsonCard = "";
+    //        string jsonCards = "";
+    //        foreach(SCard item in Cards)
+    //        {
+    //            jsonCard = JsonSerializer.Serialize(item);
+    //            jsonCards += jsonCard;
+    //        }
+    //        using (StreamWriter writer = new StreamWriter(path))
+    //        {
+    //            writer.WriteLine(jsonCards);
+    //        }
+    //    }
+    //    public static void Load()
+    //    {
+    //        string jsonCard = "";
+    //        SCard card;
+    //        List<SCard> items = new List<SCard>();
+    //        using (StreamReader reader = new StreamReader(path))
+    //        {
+    //            while (!reader.EndOfStream)
+    //            {
+    //                jsonCard = reader.ReadLine();
+    //                card = JsonSerializer.Deserialize<SCard>(jsonCard);
+    //                items.Add(card);
+    //            }
+    //        }
+    //        Cards = items;
+    //    }
+    //    public static async void AddCardAsync(SCard card)
+    //    {
+    //        string jsonCard = JsonSerializer.Serialize(card);
+
+    //        using (StreamWriter writer = new StreamWriter(path, true))
+    //        {
+    //            await writer.WriteLineAsync(jsonCard);
+    //        }
+    //    }
+    //}
 }
